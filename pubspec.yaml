@@ -12,11 +12,12 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^0.22.0
-  http: ^0.13.3
+  http: ^0.12.2
   intl: ^0.17.0
+  http_parser: 3.1.4
   meta: ^1.1.8
   async: ^2.4.2
-  dio: ^4.0.0
+  dio: ^3.0.10
   get_it: ^4.0.4
   equatable: ^2.0.0
   tripledes: ^2.1.0
