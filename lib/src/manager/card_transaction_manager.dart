@@ -9,8 +9,8 @@ import 'package:rave_flutter/src/manager/base_transaction_manager.dart';
 
 class CardTransactionManager extends BaseTransactionManager {
   CardTransactionManager(
-      {@required BuildContext context,
-      @required TransactionComplete onTransactionComplete})
+      {required BuildContext context,
+      required TransactionComplete onTransactionComplete})
       : super(
           context: context,
           onTransactionComplete: onTransactionComplete,
@@ -27,8 +27,8 @@ class CardTransactionManager extends BaseTransactionManager {
 
       flwRef = response.flwRef;
 
-      var suggestedAuth = response.suggestedAuth?.toUpperCase();
-      var authModelUsed = response.authModelUsed?.toUpperCase();
+      var suggestedAuth = response.suggestedAuth.toUpperCase();
+      var authModelUsed = response.authModelUsed.toUpperCase();
       var message = response.message.toUpperCase();
       var chargeResponseCode = response.chargeResponseCode;
 
@@ -87,7 +87,7 @@ class CardTransactionManager extends BaseTransactionManager {
       state: State.pin,
       callback: (pin) {
         if (pin != null && pin.length == 4) {
-          payload
+          payload!
             ..pin = pin
             ..suggestedAuth = RaveConstants.PIN;
           _handlePinOrBillingInput();
@@ -106,7 +106,7 @@ class CardTransactionManager extends BaseTransactionManager {
       TransactionState(
           state: State.avsSecure,
           callback: (map) {
-            payload
+            payload!
               ..suggestedAuth = RaveConstants.NO_AUTH_INTERNATIONAL
               ..billingAddress = map["address"]
               ..billingCity = map["city"]
@@ -138,7 +138,7 @@ class CardTransactionManager extends BaseTransactionManager {
         if (responseCode == "00") {
           reQueryTransaction();
         } else if (responseCode == "02") {
-          var authModel = response.authModelUsed?.toUpperCase();
+          var authModel = response.authModelUsed.toUpperCase();
           if (authModel == RaveConstants.PIN) {
             onOtpRequested(response.chargeResponseMessage);
           } else if (authModel == RaveConstants.AVS_VBVSECURECODE ||

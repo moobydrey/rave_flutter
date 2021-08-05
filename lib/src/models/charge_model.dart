@@ -4,8 +4,8 @@ import 'package:meta/meta.dart';
 class ChargeResponseModel extends Equatable {
   final String status;
   final String message;
-  final String validateInstructions;
-  final String validateInstruction;
+  final String? validateInstructions;
+  final String? validateInstruction;
   final String suggestedAuth;
   final String chargeResponseCode;
   final String authModelUsed;
@@ -18,26 +18,26 @@ class ChargeResponseModel extends Equatable {
   final String chargedAmount;
   final String redirectUrl;
   final bool hasData;
-  final Map rawResponse;
+  final Map<String, dynamic> rawResponse;
 
   ChargeResponseModel({
-    @required this.status,
-    @required this.message,
-    @required this.validateInstructions,
-    @required this.suggestedAuth,
-    @required this.chargeResponseCode,
-    @required this.authModelUsed,
-    @required this.flwRef,
-    @required this.txRef,
-    @required this.chargeResponseMessage,
-    @required this.authUrl,
-    @required this.appFee,
-    @required this.currency,
-    @required this.chargedAmount,
-    @required this.redirectUrl,
-    @required this.hasData,
-    @required this.rawResponse,
-    @required this.validateInstruction,
+    required this.status,
+    required this.message,
+    required this.validateInstructions,
+    required this.suggestedAuth,
+    required this.chargeResponseCode,
+    required this.authModelUsed,
+    required this.flwRef,
+    required this.txRef,
+    required this.chargeResponseMessage,
+    required this.authUrl,
+    required this.appFee,
+    required this.currency,
+    required this.chargedAmount,
+    required this.redirectUrl,
+    required this.hasData,
+    required this.rawResponse,
+    required this.validateInstruction,
   });
 
   factory ChargeResponseModel.fromJson(Map<String, dynamic> json) {
@@ -70,8 +70,8 @@ class ChargeResponseModel extends Equatable {
   List<Object> get props => [
         status,
         message,
-        validateInstructions,
-        validateInstruction,
+        validateInstructions!,
+        validateInstruction!,
         suggestedAuth,
         chargeResponseCode,
         authModelUsed,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CardMonthInputFormatter extends TextInputFormatter {
-  String previousText;
+  String? previousText;
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
@@ -18,7 +18,7 @@ class CardMonthInputFormatter extends TextInputFormatter {
       var nonZeroIndex = i + 1;
 
       if (nonZeroIndex % 2 == 0 &&
-          ((!_isDeletion(previousText, text) && nonZeroIndex != 4) ||
+          ((!_isDeletion(previousText!, text) && nonZeroIndex != 4) ||
               (nonZeroIndex != text.length))) {
         buffer.write('/');
       }
@@ -58,7 +58,7 @@ class CardNumberInputFormatter extends TextInputFormatter {
   }
 }
 
-bool _isDeletion(String prevText, String newText) {
+bool _isDeletion(String? prevText, String newText) {
   if (prevText == null) {
     return false;
   }

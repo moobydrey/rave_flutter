@@ -6,46 +6,46 @@ import 'package:rave_flutter/src/models/bank_model.dart';
 import 'package:rave_flutter/src/models/sub_account.dart';
 
 class Payload {
-  String expiryMonth;
+  String? expiryMonth;
   String pbfPubKey;
-  String ip;
+  String? ip;
   String lastName;
   String firstName;
   String currency;
-  String country;
-  String amount;
-  String email;
-  String expiryYear;
-  String cvv;
-  String cardNo;
-  String paymentPlan;
-  String network;
-  String bvn;
-  String voucher;
+  String? country;
+  String? amount;
+  String? email;
+  String? expiryYear;
+  String? cvv;
+  String? cardNo;
+  String? paymentPlan;
+  String? network;
+  String? bvn;
+  String? voucher;
   bool isPreAuth;
-  bool isUsBankCharge;
-  bool isMobileMoneyFranco;
-  bool isMpesa;
-  bool isMpesaLipa;
-  String phoneNumber;
-  String accountNumber;
-  BankModel bank;
-  String passCode;
-  String txRef;
-  String orderRef;
-  Map<String, String> meta;
-  List<SubAccount> subAccounts;
-  String cardBIN;
-  String pin;
-  String suggestedAuth;
-  String narration;
-  String billingZip;
-  String billingCity;
-  String billingAddress;
-  String billingState;
-  String billingCountry;
-  String redirectUrl;
-  String paymentType;
+  bool? isUsBankCharge;
+  bool? isMobileMoneyFranco;
+  bool? isMpesa;
+  bool? isMpesaLipa;
+  String? phoneNumber;
+  String? accountNumber;
+  BankModel? bank;
+  String? passCode;
+  String? txRef;
+  String? orderRef;
+  Map<String, String>? meta;
+  List<SubAccount>? subAccounts;
+  String? cardBIN;
+  String? pin;
+  String? suggestedAuth;
+  String? narration;
+  String? billingZip;
+  String? billingCity;
+  String? billingAddress;
+  String? billingState;
+  String? billingCountry;
+  String? redirectUrl;
+  String? paymentType;
 
   Payload.fromInitializer(RavePayInitializer i)
       : this.amount = i.amount.toString(),
@@ -59,7 +59,7 @@ class Payload {
         this.meta = i.meta,
         this.subAccounts = i.subAccounts,
         this.redirectUrl = i.redirectUrl,
-        this.isPreAuth = i.isPreAuth,
+        this.isPreAuth = i.isPreAuth!,
         this.pbfPubKey = i.publicKey,
         this.paymentPlan = i.paymentPlan,
         this.isUsBankCharge = i.acceptAchPayments,
@@ -68,23 +68,23 @@ class Payload {
         this.isMpesaLipa = i.acceptMpesaPayments;
 
   Payload(
-      {@required this.expiryMonth,
-      @required this.pbfPubKey,
-      @required this.ip,
-      @required this.lastName,
-      @required this.firstName,
-      @required this.amount,
-      @required this.email,
-      @required this.expiryYear,
-      @required this.cvv,
-      @required this.cardNo,
-      @required this.paymentPlan,
-      @required this.network,
-      @required this.bvn,
-      @required this.voucher,
-      @required this.phoneNumber,
-      @required this.accountNumber,
-      @required this.passCode,
+      {required this.expiryMonth,
+      required this.pbfPubKey,
+      required this.ip,
+      required this.lastName,
+      required this.firstName,
+      required this.amount,
+      required this.email,
+      required this.expiryYear,
+      required this.cvv,
+      required this.cardNo,
+      required this.paymentPlan,
+      required this.network,
+      required this.bvn,
+      required this.voucher,
+      required this.phoneNumber,
+      required this.accountNumber,
+      required this.passCode,
       this.currency = Strings.ngn,
       this.country = Strings.ng,
       this.isPreAuth = false,
@@ -129,23 +129,23 @@ class Payload {
     putIfNotNull(map: json, key: "billingstate", value: billingState);
     putIfNotNull(map: json, key: "billingcountry", value: billingCountry);
     putIfNotNull(map: json, key: "billingzip", value: billingZip);
-    putIfTrue(map: json, key: "is_us_bank_charge", value: isUsBankCharge);
+    putIfTrue(map: json, key: "is_us_bank_charge", value: isUsBankCharge ?? false);
     putIfTrue(
-        map: json, key: "is_mobile_money_franco", value: isMobileMoneyFranco);
-    putIfTrue(map: json, key: "is_mpesa", value: isMpesa);
-    putIfTrue(map: json, key: "is_mpesa_lipa", value: isMpesaLipa);
+        map: json, key: "is_mobile_money_franco", value: isMobileMoneyFranco ?? false);
+    putIfTrue(map: json, key: "is_mpesa", value: isMpesa ?? false);
+    putIfTrue(map: json, key: "is_mpesa_lipa", value: isMpesaLipa ?? false);
 
     putIfNotNull(
         map: json, key: "charge_type", value: isPreAuth ? "preauth" : null);
 
-    if (isMobileMoneyFranco) {
-      meta["orderRef"] = orderRef;
+    if (isMobileMoneyFranco ?? false) {
+      meta!["orderRef"] = orderRef ?? '';
     }
 
     if (meta == null) meta = {};
-    meta["sdk"] = "flutter";
+    meta!["sdk"] = "flutter";
     json["meta"] = [
-      for (var e in meta.entries) {"metaname": e.key, "metavalue": e.value}
+      for (var e in meta!.entries) {"metaname": e.key, "metavalue": e.value}
     ];
     putIfNotNull(
       map: json,
@@ -155,9 +155,9 @@ class Payload {
     putIfNotNull(
         map: json,
         key: "subaccounts",
-        value: subAccounts == null || subAccounts.isEmpty
+        value: subAccounts == null || subAccounts!.isEmpty
             ? null
-            : subAccounts.map((a) => a.toJson()).toList());
+            : subAccounts?.map((a) => a.toJson()).toList());
     return json;
   }
 }

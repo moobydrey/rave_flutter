@@ -18,9 +18,9 @@ class RavePayManager {
   /// {@macro rave_flutter.rave_pay_manager.prompt}
   @Deprecated(
       "'initilize' doesn't properly communicate the purpose of this function. Use the `prompt` function. Will be removed in version 1.0.0")
-  Future<RaveResult> initialize({
-    @required BuildContext context,
-    @required RavePayInitializer initializer,
+  Future<RaveResult?> initialize({
+    required BuildContext context,
+    required RavePayInitializer initializer,
   }) async {
     return prompt(context: context, initializer: initializer);
   }
@@ -36,25 +36,21 @@ class RavePayManager {
   ///
   /// Please, enable embedded_views_preview on iOS. See https://stackoverflow.com/a/55290868/6181476
   ///  {@endtemplate}
-  Future<RaveResult> prompt({
-    @required BuildContext context,
-    @required RavePayInitializer initializer,
+  Future<RaveResult?> prompt({
+    required BuildContext context,
+    required RavePayInitializer initializer,
   }) async {
-    assert(context != null);
-    assert(initializer != null);
-
     // Validate the initializer params
     var error = ValidatorUtils.validateInitializer(initializer);
-    if (error != null) {
+    if (error == null) {
       return RaveResult(
           status: RaveStatus.error,
           rawResponse: {'error': error},
           message: error);
     }
-
     Repository.bootStrap(initializer);
-
-    var result = showDialog<RaveResult>(
+    dynamic result;
+    result = showDialog<RaveResult>(
       context: context,
       barrierDismissible: false,
       builder: (_) => Theme(

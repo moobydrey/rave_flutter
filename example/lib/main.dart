@@ -284,7 +284,11 @@ class _HomeWidgetState extends State<HomeWidget> {
     var initializer = RavePayInitializer(
         amount: amount,
         publicKey: publicKey,
+        email: email,
         encryptionKey: encryptionKey,
+        txRef: txRef,
+        orderRef: orderRef,
+        companyName: Text('Demo'),
         subAccounts: subAccounts.isEmpty ? null : null)
       ..country =
           country = country != null && country.isNotEmpty ? country : "NG"
@@ -293,8 +297,6 @@ class _HomeWidgetState extends State<HomeWidget> {
       ..fName = firstName
       ..lName = lastName
       ..narration = narration ?? ''
-      ..txRef = txRef
-      ..orderRef = orderRef
       ..acceptMpesaPayments = acceptMpesaPayment
       ..acceptAccountPayments = acceptAccountPayment
       ..acceptCardPayments = acceptCardPayment

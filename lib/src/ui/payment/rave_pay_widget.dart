@@ -38,26 +38,26 @@ class RavePayWidget extends StatefulWidget {
 class _RavePayWidgetState extends BaseState<RavePayWidget>
     with TickerProviderStateMixin {
   final RavePayInitializer _initializer = Repository.instance.initializer;
-  AnimationController _animationController;
-  Animation _animation;
+  AnimationController? _animationController;
+  Animation<double>? _animation;
   var _slideUpTween = Tween<Offset>(begin: Offset(0, 0.4), end: Offset.zero);
   var _slideRightTween =
       Tween<Offset>(begin: Offset(-0.4, 0), end: Offset.zero);
-  int _selectedIndex;
-  List<_Item> _items;
+  int? _selectedIndex;
+  List<_Item>? _items;
 
   @override
   void initState() {
     _items = _getItems();
-    if (_items.length == 1) {
+    if (_items?.length == 1) {
       _selectedIndex = 0;
     }
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
     _animation = CurvedAnimation(
-        parent: Tween<double>(begin: 0, end: 1).animate(_animationController),
+        parent: Tween<double>(begin: 0, end: 1).animate(_animationController!),
         curve: Curves.fastOutSlowIn);
-    _animationController.forward();
+    _animationController?.forward();
     super.initState();
   }
 
@@ -65,16 +65,16 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
   void dispose() {
     ConnectionBloc.instance.dispose();
     TransactionBloc.instance.dispose();
-    _animationController.dispose();
+    _animationController!.dispose();
     super.dispose();
   }
 
   @override
   Widget buildChild(BuildContext context) {
     var column = Column(
-      children: _items.map((item) {
-        var index = _items.indexOf(item);
-        return _selectedIndex == index ? item.content : buildItemHeader(index);
+      children: _items!.map((item) {
+        var index = _items?.indexOf(item);
+        return _selectedIndex == index ? item.content : buildItemHeader(index!);
       }).toList() + [
         FlutterwaveBadge()
       ],
@@ -93,24 +93,24 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
             if (!snapshot.hasData) {
               w = column;
             } else {
-              switch (transactionState.state) {
+              switch (transactionState!.state) {
                 case State.initial:
                   w = column;
                   break;
                 case State.pin:
                   w = PinWidget(
-                    onPinInputted: transactionState.callback,
+                    onPinInputted: transactionState.callback!,
                   );
                   break;
                 case State.otp:
                   w = OtpWidget(
-                    onPinInputted: transactionState.callback,
+                    onPinInputted: transactionState.callback!,
                     message: transactionState.data,
                   );
                   break;
                 case State.avsSecure:
                   w = BillingWidget(
-                      onBillingInputted: transactionState.callback);
+                      onBillingInputted: transactionState.callback!);
               }
             }
             return w;
@@ -131,9 +131,9 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
       duration: Duration(milliseconds: 400),
       curve: Curves.linear,
       child: FadeTransition(
-        opacity: _animation,
+        opacity: _animation!,
         child: SlideTransition(
-          position: _slideUpTween.animate(_animation),
+          position: _slideUpTween.animate(_animation!),
           child: Stack(
             alignment: AlignmentDirectional.center,
             children: <Widget>[
@@ -157,9 +157,9 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
   }
 
   Widget _buildHeader() {
-    var displayEmail = _initializer.displayEmail && _initializer.email != null;
-    var displayAmount = _initializer.displayAmount &&
-        (_initializer.amount != null || !_initializer.amount.isNegative);
+    var displayEmail = _initializer.displayEmail! && _initializer.email.isNotEmpty;
+    var displayAmount = _initializer.displayAmount! &&
+        (_initializer.amount != null || !_initializer.amount!.isNegative);
 
     var rightWidget = displayEmail || displayAmount
         ? Column(
@@ -183,7 +183,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
                       children: <TextSpan>[
                         TextSpan(
                           text: formatAmount(
-                            _initializer.amount,
+                            _initializer.amount!,
                           ),
                           style: TextStyle(
                             fontSize: 15,
@@ -251,7 +251,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
         children: <Widget>[
           header,
           SlideTransition(
-            position: _slideRightTween.animate(_animation),
+            position: _slideRightTween.animate(_animation!),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,7 +281,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
       );
     }
     return FadeTransition(
-      opacity: _animation,
+      opacity: _animation!,
       child: Padding(
         padding: const EdgeInsets.only(left: 20, bottom: 10, top: 5),
         child: header,
@@ -291,7 +291,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
 
   List<_Item> _getItems() {
     var items = <_Item>[];
-    if (_initializer.acceptCardPayments) {
+    if (_initializer.acceptCardPayments!) {
       items.add(
         _Item(
           Strings.card,
@@ -306,7 +306,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
       );
     }
 
-    if (_initializer.acceptAccountPayments) {
+    if (_initializer.acceptAccountPayments!) {
       if (_initializer.country.toUpperCase() == Strings.us &&
           _initializer.currency.toUpperCase() == Strings.usd) {
         items.add(_Item(
@@ -333,7 +333,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
       }
     }
 
-    if (_initializer.acceptMpesaPayments) {
+    if (_initializer.acceptMpesaPayments!) {
       items.add(
         _Item(
           Strings.mpesa,
@@ -347,7 +347,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
       );
     }
 
-    if (_initializer.acceptGHMobileMoneyPayments) {
+    if (_initializer.acceptGHMobileMoneyPayments!) {
       items.add(
         _Item(
           Strings.ghanaMobileMoney,
@@ -361,7 +361,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
       );
     }
 
-    if (_initializer.acceptUgMobileMoneyPayments) {
+    if (_initializer.acceptUgMobileMoneyPayments!) {
       items.add(
         _Item(
           Strings.ugandaMobileMoney,
@@ -375,7 +375,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
       );
     }
 
-    if (_initializer.acceptMobileMoneyFrancophoneAfricaPayments) {
+    if (_initializer.acceptMobileMoneyFrancophoneAfricaPayments!) {
       items.add(
         _Item(
           Strings.mobileMoneyFrancophoneAfrica,
@@ -392,7 +392,7 @@ class _RavePayWidgetState extends BaseState<RavePayWidget>
   }
 
   Widget buildItemHeader(int index) {
-    var item = _items[index];
+    var item = _items![index];
     var border = BorderSide(color: Colors.grey, width: 0.5);
     return Container(
       width: double.infinity,

@@ -5,7 +5,7 @@ import 'package:rave_flutter/src/ui/fields/base_field.dart';
 class BillingWidget extends StatefulWidget {
   final ValueChanged<Map<String, String>> onBillingInputted;
 
-  BillingWidget({@required this.onBillingInputted});
+  BillingWidget({required this.onBillingInputted});
 
   @override
   _BillingWidgetState createState() => _BillingWidgetState();
@@ -14,11 +14,11 @@ class BillingWidget extends StatefulWidget {
 class _BillingWidgetState extends State<BillingWidget> {
   var _formKey = GlobalKey<FormState>();
   var _autoValidate = false;
-  String address;
-  String city;
-  String state;
-  String zip;
-  String country;
+  String? address;
+  String? city;
+  String? state;
+  String? zip;
+  String? country;
 
   @override
   Widget build(BuildContext context) {
@@ -92,16 +92,16 @@ class _BillingWidgetState extends State<BillingWidget> {
   }
 
   void _validateInputs() {
-    final FormState form = _formKey.currentState;
+    final FormState form = _formKey.currentState!;
     if (form.validate()) {
       FocusScope.of(context).requestFocus(FocusNode());
       form.save();
       widget.onBillingInputted({
-        "address": address,
-        "city": city,
-        "state": state,
-        "zip": zip,
-        "counntry": country
+        "address": address ?? '',
+        "city": city ?? '',
+        "state": state ?? '',
+        "zip": zip ?? '',
+        "counntry": country ?? ''
       });
     } else {
       setState(() {
@@ -110,6 +110,6 @@ class _BillingWidgetState extends State<BillingWidget> {
     }
   }
 
-  String _validate(String value) =>
+  String? _validate(String? value) =>
       value == null || value.trim().isEmpty ? "Field is required" : null;
 }

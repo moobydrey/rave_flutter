@@ -8,7 +8,7 @@ import 'package:rave_flutter/src/repository/repository.dart';
 class HttpService {
   static HttpService get instance => getIt<HttpService>();
 
-  Dio _dio;
+  var _dio = Dio();
 
   Dio get dio => _dio;
 

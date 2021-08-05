@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 class RaveResult extends Equatable {
   /// The status of the transaction. Whether
@@ -9,15 +8,15 @@ class RaveResult extends Equatable {
   /// [RaveStatus.error] for when the transaction completes with an error,
   ///
   /// [RaveStatus.cancelled] for when the user cancelled
-  final RaveStatus status;
+  final RaveStatus? status;
 
   /// Raw response from rave. Can be null
-  final Map rawResponse;
+  final Map? rawResponse;
 
   /// Human readable message
-  final String message;
+  final String? message;
 
-  RaveResult({@required this.status, this.rawResponse, this.message});
+  RaveResult({required this.status, this.rawResponse, this.message});
 
   @override
   String toString() {
@@ -25,7 +24,7 @@ class RaveResult extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, rawResponse, message];
+  List<Object> get props => [status!, rawResponse!, message!];
 }
 
 enum RaveStatus { success, error, cancelled }

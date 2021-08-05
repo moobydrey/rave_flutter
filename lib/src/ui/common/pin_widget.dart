@@ -5,7 +5,7 @@ import 'package:rave_flutter/src/ui/fields/base_field.dart';
 class PinWidget extends StatefulWidget {
   final ValueChanged<String> onPinInputted;
 
-  PinWidget({@required this.onPinInputted});
+  PinWidget({required this.onPinInputted});
 
   @override
   _PinWidgetState createState() => _PinWidgetState();

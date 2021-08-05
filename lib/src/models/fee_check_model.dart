@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class FeeCheckResponseModel extends Equatable {
-  final String message;
-  final String status;
-  final String fee;
-  final String chargeAmount;
-  final String merchantFee;
-  final String raveFee;
-  final Map rawResponse;
+  final String? message;
+  final String? status;
+  final String? fee;
+  final String? chargeAmount;
+  final String? merchantFee;
+  final String? raveFee;
+  final Map? rawResponse;
 
   FeeCheckResponseModel({
     this.message,
@@ -34,11 +34,11 @@ class FeeCheckResponseModel extends Equatable {
 
   @override
   List<Object> get props => [
-        message,
-        status,
-        fee,
-        chargeAmount,
-        merchantFee,
-        raveFee,
+        message!,
+        status!,
+        fee!,
+        chargeAmount!,
+        merchantFee!,
+        raveFee!,
       ];
 }
