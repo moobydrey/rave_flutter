@@ -21,7 +21,7 @@ class CardTransactionManager extends BaseTransactionManager {
     setConnectionState(ConnectionState.waiting);
     try {
       var response =
-          await service.charge(ChargeRequestBody.fromPayload(payload: payload));
+          await service.charge(ChargeRequestBody.fromPayload(payload: payload, type: 'card'));
 
       setConnectionState(ConnectionState.done);
 
