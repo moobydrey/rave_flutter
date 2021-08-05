@@ -46,7 +46,7 @@ abstract class BaseTransactionManager {
     setConnectionState(ConnectionState.waiting);
     try {
       var response =
-          await service.fetchFee(FeeCheckRequestBody.fromPayload(payload));
+      await service.fetchFee(FeeCheckRequestBody.fromPayload(payload));
       setConnectionState(ConnectionState.done);
       displayFeeDialog(response);
     } on RaveException catch (e) {
@@ -78,9 +78,9 @@ abstract class BaseTransactionManager {
     await Navigator.of(context).push(
       MaterialPageRoute(
           builder: (_) => WebViewWidget(
-                authUrl: cleanUrl(authUrl),
-                callbackUrl: cleanUrl(payload!.redirectUrl!),
-              ),
+            authUrl: cleanUrl(authUrl),
+            callbackUrl: cleanUrl(payload!.redirectUrl!),
+          ),
           fullscreenDialog: true),
     );
     reQueryTransaction();
@@ -136,7 +136,7 @@ abstract class BaseTransactionManager {
           CupertinoDialogAction(
             child: Text("Yes"),
             isDestructiveAction: true,
-            onPressed: charge,
+            onPressed: () => charge(),
           ),
           CupertinoDialogAction(
             child: Text('No'),
@@ -150,7 +150,7 @@ abstract class BaseTransactionManager {
         content: content,
         actions: <Widget>[
           FlatButton(onPressed: closeDialog, child: Text('NO')),
-          FlatButton(onPressed: charge, child: Text('YES'))
+          FlatButton(onPressed: () => charge(), child: Text('YES'))
         ],
       );
     }

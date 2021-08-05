@@ -45,7 +45,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   String email;
   double amount;
   String publicKey = "PASTE PUBLIC KEY HERE";
-  String encryptionKey = "PASTE ENCRYPTION KEY HERE";
+  String encryptionKey = "PASTE ENCRYPTION HERE";
   String txRef;
   String orderRef;
   String narration;
@@ -314,6 +314,6 @@ class _HomeWidgetState extends State<HomeWidget> {
         .prompt(context: context, initializer: initializer);
     print(response);
     scaffoldKey.currentState
-        .showSnackBar(SnackBar(content: Text(response?.message)));
+        .showSnackBar(SnackBar(content: Text(response?.message ?? '')));
   }
 }
