@@ -44,8 +44,8 @@ class _HomeWidgetState extends State<HomeWidget> {
   List<SubAccount> subAccounts = [];
   String email;
   double amount;
-  String publicKey = "PASTE PUBLIC KEY HERE";
-  String encryptionKey = "PASTE ENCRYPTION HERE";
+  String publicKey = "PASTE YOUR CODE HERE";
+  String encryptionKey = "PASTE YOUR KEY HERE";
   String txRef;
   String orderRef;
   String narration;
@@ -288,15 +288,15 @@ class _HomeWidgetState extends State<HomeWidget> {
         encryptionKey: encryptionKey,
         txRef: txRef,
         orderRef: orderRef,
+        narration: narration,
+        lName: lastName,
+        fName: firstName,
         companyName: Text('Demo'),
         subAccounts: subAccounts.isEmpty ? null : null)
       ..country =
           country = country != null && country.isNotEmpty ? country : "NG"
       ..currency = currency != null && currency.isNotEmpty ? currency : "NGN"
       ..email = email
-      ..fName = firstName
-      ..lName = lastName
-      ..narration = narration ?? ''
       ..acceptMpesaPayments = acceptMpesaPayment
       ..acceptAccountPayments = acceptAccountPayment
       ..acceptCardPayments = acceptCardPayment

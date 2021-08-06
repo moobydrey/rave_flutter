@@ -42,7 +42,7 @@ class RavePayManager {
   }) async {
     // Validate the initializer params
     var error = ValidatorUtils.validateInitializer(initializer);
-    if (error == null) {
+    if (error != null) {
       return RaveResult(
           status: RaveStatus.error,
           rawResponse: {'error': error},

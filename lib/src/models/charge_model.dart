@@ -8,7 +8,7 @@ class ChargeResponseModel extends Equatable {
   final String? validateInstruction;
   final String suggestedAuth;
   final String chargeResponseCode;
-  final String authModelUsed;
+  final String? authModelUsed;
   final String flwRef;
   final String txRef;
   final String chargeResponseMessage;
@@ -74,7 +74,7 @@ class ChargeResponseModel extends Equatable {
         validateInstruction!,
         suggestedAuth,
         chargeResponseCode,
-        authModelUsed,
+        authModelUsed!,
         flwRef,
         chargeResponseMessage,
         authUrl,

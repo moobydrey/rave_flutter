@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:tripledes_nullsafety/tripledes_nullsafety.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:tripledes/tripledes.dart';
 
 bool isEmpty(String? string) {
   return string == null || string.trim().isEmpty;

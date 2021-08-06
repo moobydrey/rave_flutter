@@ -56,6 +56,7 @@ class Payload {
         this.lastName = i.lName,
         this.txRef = i.txRef,
         this.orderRef = i.orderRef,
+        this.narration = i.narration,
         this.meta = i.meta,
         this.subAccounts = i.subAccounts,
         this.redirectUrl = i.redirectUrl,

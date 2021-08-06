@@ -28,7 +28,7 @@ class CardTransactionManager extends BaseTransactionManager {
       flwRef = response.flwRef;
 
       var suggestedAuth = response.suggestedAuth.toUpperCase();
-      var authModelUsed = response.authModelUsed.toUpperCase();
+      var authModelUsed = response.authModelUsed?.toUpperCase();
       var message = response.message.toUpperCase();
       var chargeResponseCode = response.chargeResponseCode;
 
@@ -71,7 +71,7 @@ class CardTransactionManager extends BaseTransactionManager {
 
       if (authModelUsed == RaveConstants.GTB_OTP ||
           authModelUsed == RaveConstants.ACCESS_OTP ||
-          authModelUsed.contains("OTP")) {
+          authModelUsed!.contains("OTP")) {
         onOtpRequested(response.chargeResponseMessage);
         return;
       }
@@ -134,11 +134,11 @@ class CardTransactionManager extends BaseTransactionManager {
 
       var responseCode = response.chargeResponseCode;
 
-      if (response.hasData && responseCode != null) {
+      if (response.hasData && responseCode.isNotEmpty) {
         if (responseCode == "00") {
           reQueryTransaction();
         } else if (responseCode == "02") {
-          var authModel = response.authModelUsed.toUpperCase();
+          var authModel = response.authModelUsed!.toUpperCase();
           if (authModel == RaveConstants.PIN) {
             onOtpRequested(response.chargeResponseMessage);
           } else if (authModel == RaveConstants.AVS_VBVSECURECODE ||
