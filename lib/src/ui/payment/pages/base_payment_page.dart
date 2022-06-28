@@ -61,8 +61,8 @@ abstract class BasePaymentPageState<T extends BasePaymentPage> extends State<T>
     if (!supported) {
       _infoAnimationController = AnimationController(
           vsync: this, duration: Duration(milliseconds: 400));
-      _infoAnimation =
-          Tween<double>(begin: 1.0, end: 1.2).animate(_infoAnimationController!);
+      _infoAnimation = Tween<double>(begin: 1.0, end: 1.2)
+          .animate(_infoAnimationController!);
       _infoAnimationController!.addStatusListener(_onInfoAnimationChange);
     }
     super.initState();
@@ -180,7 +180,6 @@ abstract class BasePaymentPageState<T extends BasePaymentPage> extends State<T>
 
     return Form(
       key: formKey,
-      autovalidate: _autoValidate,
       child: Column(
         children: amountAndEmailFields
           ..insert(0, topWidget)

@@ -27,7 +27,6 @@ class _AddVendorWidgetState extends State<AddVendorWidget> {
     return AlertDialog(
       content: Form(
         key: formKey,
-        autovalidate: autoValidate,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -59,7 +58,9 @@ class _AddVendorWidgetState extends State<AddVendorWidget> {
                 ratioFocusNode.unfocus();
                 validateInputs();
               },
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               validator: (value) =>
                   value.trim().isEmpty ? 'Field is required' : null,
             )
